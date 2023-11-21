@@ -10,6 +10,7 @@ env:
 
 jobs:
   build:
+    permissions: write-all
     name: Build and upload
     runs-on: windows-latest
 
@@ -58,7 +59,7 @@ jobs:
             mv "target/${{ matrix.target }}/release/$binary_name" "$dirname"
           fi
 
-          echo "ASSET=$dirname.tar.gz" >> $GITHUB_ENV
+          echo "ASSET=$dirname" >> $GITHUB_ENV
 
       - name: Release
         uses: softprops/action-gh-release@v1
