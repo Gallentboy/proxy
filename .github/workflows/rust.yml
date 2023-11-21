@@ -51,7 +51,7 @@ jobs:
           # Replace with the name of your binary
           binary_name="proxy"
 
-          dirname="$binary_name-${{ env.VERSION }}-${{ matrix.target }}"
+          dirname="$binary_name-${{ matrix.target }}"
           mkdir "$dirname"
           if [ "${{ matrix.os }}" = "windows-latest" ]; then
             mv "target/${{ matrix.target }}/release/$binary_name.exe" "$dirname"
@@ -70,6 +70,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: 1.0.0
           files: |
             ${{ env.ASSET }}
   
