@@ -2,9 +2,8 @@ name: Rust
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    tags:
+      - 'v*'
 
 env:
   CARGO_TERM_COLOR: always
@@ -32,6 +31,19 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v3
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Please refer to [CHANGELOG.md](https://github.com/f5l5y5/axios-abort/blob/main/CHANGELOG.md) for details.
+          draft: false
+          prerelease: false
 
       - name: Rust setup
         uses: dtolnay/rust-toolchain@stable
@@ -70,7 +82,8 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: 1.0.0
+          tag_name: ${{ github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           files: |
             ${{ env.ASSET }}
   
