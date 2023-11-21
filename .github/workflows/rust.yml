@@ -43,13 +43,13 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          cargo build --verbose --release --target ${{ matrix.target }}
+          cargo build --release --target ${{ matrix.target }}
           
       - name: Build archive
         shell: bash
         run: |
           # Replace with the name of your binary
-          binary_name="<BINARY_NAME>"
+          binary_name="proxy"
 
           dirname="$binary_name-${{ env.VERSION }}-${{ matrix.target }}"
           mkdir "$dirname"
