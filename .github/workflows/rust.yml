@@ -33,19 +33,14 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v3
 
-      - name: Install Rust
-        # Or @nightly if you want
+      - name: Rust setup
         uses: dtolnay/rust-toolchain@stable
-        # Arguments to pass in
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
         with:
-        # Make Rust compile to our target (defined in the matrix)
-          targets: ${{ matrix.target }}
-      - name: Build
-        uses: actions-rs/cargo@v1
-        with:
-          use-cross: true
-          command: build
-          args: --release --target ${{ matrix.target }}
+          workspaces: '. -> target'
+          
       - name: Build archive
         shell: bash
         run: |
