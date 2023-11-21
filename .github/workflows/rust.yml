@@ -58,19 +58,14 @@ jobs:
             mv "target/${{ matrix.target }}/release/$binary_name" "$dirname"
           fi
 
-          if [ "${{ matrix.os }}" = "windows-latest" ]; then
-            7z a "$dirname.zip" "$dirname"
-            echo "ASSET=$dirname.zip" >> $GITHUB_ENV
-          else
-            tar -czf "$dirname.tar.gz" "$dirname"
-            echo "ASSET=$dirname.tar.gz" >> $GITHUB_ENV
-          fi
+          echo "ASSET=$dirname.tar.gz" >> $GITHUB_ENV
 
       - name: Release
         uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref_name }}
-          token: ${{ secrets.GITHUB_TOKEN }}
           files: |
             ${{ env.ASSET }}
   
