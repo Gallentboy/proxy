@@ -40,6 +40,10 @@ jobs:
         uses: swatinem/rust-cache@v2
         with:
           workspaces: '. -> target'
+      - name: Build
+        shell: bash
+        run: |
+          cargo build --verbose --release --target ${{ matrix.target }}
           
       - name: Build archive
         shell: bash
