@@ -50,16 +50,16 @@ jobs:
         run: |
           # Replace with the name of your binary
           binary_name="proxy"
-
-          dirname="$binary_name-${{ matrix.target }}"
-          mkdir "$dirname"
+          target="$binary_name-${{ matrix.target }}"
           if [ "${{ matrix.os }}" = "windows-latest" ]; then
-            mv "target/${{ matrix.target }}/release/$binary_name.exe" "$dirname"
+            target="$target.exe"
+            mv "target/${{ matrix.target }}/release/$binary_name.exe" "$target"
           else
-            mv "target/${{ matrix.target }}/release/$binary_name" "$dirname"
+            mv "target/${{ matrix.target }}/release/$binary_name" "$target"
           fi
-
-          echo "ASSET=$dirname" >> $GITHUB_ENV
+          echo "=========="
+          echo $target
+          echo "ASSET=$target" >> $GITHUB_ENV
 
       - name: Release
         uses: softprops/action-gh-release@v1
