@@ -11,7 +11,7 @@ jobs:
     name: Build and upload
     runs-on: ubuntu-latest
     container:
-      image: messense/rust-musl-cross:x86_64-unknown-linux-musl
+      image: messense/rust-musl-cross:x86_64-musl
     steps:
       - name: Check for dockerenv file
         run: |
