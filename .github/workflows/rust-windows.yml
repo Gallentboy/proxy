@@ -48,8 +48,8 @@ jobs:
         run: |
           # Replace with the name of your binary
           binary_name="proxy"
-          target="$binary_name-${{ matrix.target }}"
-          mv "target/${{ matrix.target }}/release/$binary_name" "$target"
+          target="$binary_name-${{ matrix.target }}.exe"
+          mv "target/${{ matrix.target }}/release/$binary_name.exe" "$target"
           echo "ASSET=$target" >> $GITHUB_ENV
 
       - name: Release
