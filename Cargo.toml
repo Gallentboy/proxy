@@ -5,9 +5,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-hyper = { version = "0.14.27", features = ["server", "client", "http1", "http2"] }
+hyper = { version = "0.14.27", default-features = false, features = ["server", "client", "http1", "http2"] }
 tokio = { version = "1", features = ["rt-multi-thread"] }
-hyper-tls = "0.5.0"
+hyper-tls = { version = "0.5.0", features = ["vendored"] }
 lazy_static = "1.4.0"
 serde_json = "1.0.91"
 
