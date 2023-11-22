@@ -12,16 +12,11 @@ jobs:
   build:
     permissions: write-all
     name: Build and upload
-    runs-on: windows-latest
+    runs-on: macos-latest
 
     strategy:
       matrix:
-        # You can add more, for any target you'd like!
         include:
-         # - build: linux
-          #  os: ubuntu-latest
-          #  target: x86_64-unknown-linux-musl
-
           - build: macos
             os: macos-latest
             target: x86_64-apple-darwin
@@ -29,10 +24,6 @@ jobs:
           #- build: macos-arm
           #  os: macos-latest
            # target: aarch64-apple-darwin
-
-         # - build: windows
-         #   os: windows-latest
-          #  target: x86_64-pc-windows-msvc
     steps:
       - name: Clone repository
         uses: actions/checkout@v3
@@ -64,14 +55,7 @@ jobs:
           # Replace with the name of your binary
           binary_name="proxy"
           target="$binary_name-${{ matrix.target }}"
-          if [ "${{ matrix.os }}" = "windows-latest" ]; then
-            target="$target.exe"
-            mv "target/${{ matrix.target }}/release/$binary_name.exe" "$target"
-          else
-            mv "target/${{ matrix.target }}/release/$binary_name" "$target"
-          fi
-          echo "=========="
-          echo $target
+          mv "target/${{ matrix.target }}/release/$binary_name" "$target"
           echo "ASSET=$target" >> $GITHUB_ENV
 
       - name: Release
