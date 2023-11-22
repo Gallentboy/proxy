@@ -30,9 +30,9 @@ jobs:
           #  os: macos-latest
            # target: aarch64-apple-darwin
 
-          - build: windows
-            os: windows-latest
-            target: x86_64-pc-windows-msvc
+         # - build: windows
+         #   os: windows-latest
+          #  target: x86_64-pc-windows-msvc
     steps:
       - name: Clone repository
         uses: actions/checkout@v3
@@ -53,7 +53,10 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          cargo build --release --target ${{ matrix.target }}
+          clang --version
+          gcc --version
+          cc --version
+          #cargo build --release --target ${{ matrix.target }}
           
       - name: Build archive
         shell: bash
