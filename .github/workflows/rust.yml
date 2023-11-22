@@ -30,7 +30,7 @@ jobs:
             os: macos-latest
             target: aarch64-apple-darwin
 
-          - build: windows-gnu
+          - build: windows
             os: windows-latest
             target: x86_64-pc-windows-msvc
     steps:
@@ -40,10 +40,16 @@ jobs:
       - name: Rust setup
         uses: dtolnay/rust-toolchain@stable
 
+      - name: Rust Setup toolchian
+        shell: bash
+        run: |
+          rustup target add ${{ matrix.target }}
+
       - name: Rust cache
         uses: swatinem/rust-cache@v2
         with:
           workspaces: '. -> target'
+
       - name: Build
         shell: bash
         run: |
