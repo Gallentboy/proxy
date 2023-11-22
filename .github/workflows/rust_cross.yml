@@ -15,5 +15,7 @@ jobs:
     steps:
       - name: Check for dockerenv file
         run: |
+          pwd
           cargo -V
-          rustup target list
+          uname
+          whoami
