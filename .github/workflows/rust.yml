@@ -21,9 +21,9 @@ jobs:
             os: macos-latest
             target: x86_64-apple-darwin
 
-          #- build: macos-arm
-          #  os: macos-latest
-           # target: aarch64-apple-darwin
+          - build: macos-arm
+            os: macos-latest
+            target: aarch64-apple-darwin
     steps:
       - name: Clone repository
         uses: actions/checkout@v3
