@@ -13,18 +13,27 @@ jobs:
     container:
       image: messense/rust-musl-cross:x86_64-musl
     steps:
-      - name: Check for dockerenv file
-        run: |
-          pwd
-          cargo -V
-          uname
-          whoami
-
       - name: Clone repository
         uses: actions/checkout@v3
 
-      - name: Show
+      - name: Build
         shell: bash
         run: |
-         pwd
-         ls -a
+          cargo build --release --target x86_64-unknown-linux-musl
+
+      - name: Build archive
+        shell: bash
+        run: |
+          # Replace with the name of your binary
+          binary_name="proxy"
+          mv "target/x86_64-unknown-linux-musl/release/$binary_name" "proxy-x86_64-unknown-linux-musl"
+          echo "ASSET=$proxy-x86_64-unknown-linux-musl" >> $GITHUB_ENV
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: |
+            ${{ env.ASSET }}
