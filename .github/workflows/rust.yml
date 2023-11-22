@@ -1,4 +1,4 @@
-name: Rust
+name: MacOS Release
 
 on:
   push:
@@ -44,10 +44,7 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          clang --version
-          gcc --version
-          cc --version
-          #cargo build --release --target ${{ matrix.target }}
+          cargo build --release --target ${{ matrix.target }}
           
       - name: Build archive
         shell: bash
