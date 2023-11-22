@@ -3,7 +3,7 @@ name: MacOS Release
 on:
   push:
     tags:
-      - 'v*'
+      - 'vv*'
 
 env:
   CARGO_TERM_COLOR: always
